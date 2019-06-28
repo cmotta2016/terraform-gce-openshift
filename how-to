@@ -1,0 +1,70 @@
+Install Terraform
+# wget https://releases.hashicorp.com/terraform/0.12.3/terraform_0.12.3_linux_amd64.zip
+# unzip terraform_0.12.3_linux_amd64.zip
+# mv terraform /usr/local/bin/
+# terraform --version
+# ssh-keygen -t rsa -f ~/.ssh/tf-ssh-key -C jeniffer_jc29
+>> Criar conta de serviço no Google Console
+# vim main.tf
+// Configure the Google Cloud provider
+provider "google" {
+ credentials = "${file("terraform-project-244918-b89085889be4.json")}"
+ project     = "terraform-project-244918"
+ region      = "southamerica-east1"
+ zone        = "southamerica-east1-b"
+}
+
+// Terraform plugin for creating random ids
+resource "random_id" "instance_id" {
+ byte_length = 8
+}
+
+// A single Google Cloud Engine instance
+resource "google_compute_instance" "default" {
+ name         = "tf-vm-${random_id.instance_id.hex}"
+ machine_type = "f1-micro"
+ zone         = "southamerica-east1-b"
+
+metadata = {
+   ssh-keys = "jeniffer_jc29:${file("~/.ssh/tf-ssh-key.pub")}"
+ }
+
+ boot_disk {
+   initialize_params {
+     image = "debian-cloud/debian-9"
+   }
+ }
+
+// Make sure flask is installed on all new instances for later steps
+ metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq apache2"
+
+ network_interface {
+   network = "default"
+
+   access_config {
+     // Include this section to give the VM an external ip address
+   }
+ }
+}
+
+resource "google_compute_firewall" "default" {
+ name    = "tf-web-firewall"
+ network = "default"
+
+ allow {
+   protocol = "tcp"
+   ports    = ["80"]
+ }
+}
+# vim output.tf
+// A variable for extracting the external ip of the instance
+output "ip" {
+ value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
+}
+# terraform init
+# terraform plan
+# terraform apply
+# terraform output ip (opcional)
+# ssh jeniffer_jc29@`terraform output ip`
+# terraform destroy
+

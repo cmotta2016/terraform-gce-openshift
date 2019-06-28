@@ -1,0 +1,8 @@
+resource "google_storage_bucket" "temp-image-store" {
+  name = "${var.clusterid}-rhel-image-temp"
+  storage_class = "REGIONAL"
+  location = "${var.region}"
+  labels = {
+    ocp-cluster = "${var.clusterid}"
+ }
+}

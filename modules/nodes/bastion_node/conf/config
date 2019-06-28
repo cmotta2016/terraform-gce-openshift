@@ -1,0 +1,10 @@
+Host dadhx05
+	HostName    	dadhx05.interno
+	User        	dvopsusr
+	IdentityFile	/home/user/.ssh/tf-ssh-key
+	ForwardAgent 	yes
+
+Host 35.198.36.173
+	ProxyCommand	ssh dadhx05 -W %h:%p
+	IdentityFile	/home/user/.ssh/tf-ssh-key
+	User        	jeniffer_jc29
