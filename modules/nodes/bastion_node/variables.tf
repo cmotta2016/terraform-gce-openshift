@@ -22,8 +22,10 @@ variable "bastion_disk_type" {
   default = "pd-standard"
 }
 
-variable "base_image" {
-  default = "debian-cloud/debian-9"
+variable "base_image_family" {
+}
+
+variable "base_image_name" {
 }
 
 variable "subnetwork-name" {
@@ -31,6 +33,10 @@ variable "subnetwork-name" {
 
 variable "bastion_ssh_key_file" {
   default = "~/.ssh/tf-ssh-key"
+}
+
+variable "bastion_ssh_publickey_file" {
+  default = "~/.ssh/tf-ssh-key.pub"
 }
 
 variable "private_ssh_key"{

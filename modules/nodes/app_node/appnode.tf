@@ -7,18 +7,16 @@ resource "google_compute_instance" "app_node" {
   ocp-cluster = "${var.clusterid}"
   osecluster-type = "app"
   VmDnsSetting = "GlobalOnly"
- }
+}
  boot_disk {
   device_name = "${var.clusterid}-app-${count.index}"
   initialize_params {
-   image = "${var.base_image}"
+   image = "${var.base_image_family}/${var.base_image_name}"
    size  = "${var.boot_disk_size}" 
    type  = "${var.boot_disk_type}"
    }
  }
  attached_disk {
-//  source = "${var.clusterid}-app-${count.index}-docker"
-//  device_name = "${var.clusterid}-app-${count.index}-docker"
   source = "${google_compute_disk.app-docker-disk[count.index].name}"
   device_name = "${google_compute_disk.app-docker-disk[count.index].name}"
   mode = "READ_WRITE"
@@ -43,7 +41,6 @@ resource "google_compute_instance" "app_node" {
   network = "${var.clusterid}-net"
   subnetwork = "${var.subnetwork-name}"
  access_config {
-//  nat_ip = "${google_compute_address.apps-public-ip.address}"
    }
  }
  service_account {

@@ -10,7 +10,7 @@ resource "google_compute_instance" "master_node" {
  boot_disk {
   device_name = "${var.clusterid}-master-0"
   initialize_params {
-   image = "${var.base_image}"
+   image = "${var.base_image_family}/${var.base_image_name}"
    size  = "${var.boot_disk_size}" 
    type  = "${var.boot_disk_type}"
    }

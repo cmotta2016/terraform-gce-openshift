@@ -1,0 +1,5 @@
+resource "null_resource" "create_bastion_private_key" {
+  provisioner "local-exec" {
+    command = "if [ ! -f '${var.bastion_ssh_key_file}' ]; then ssh-keygen -t rsa -f ${var.bastion_ssh_key_file} -C jeniffer_jc29 -N ''; fi"
+  }
+}

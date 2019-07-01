@@ -22,10 +22,14 @@ variable "bastion_disk_size" {
   default = "20GB"
 }
 
-variable "base_image" {
-  default = "debian-cloud/debian-9"
+variable "image-family" {
+  default = "rhel"
 }
 
-variable "bastion_ssh_key_file" {
-  default = ".bastionkey_id_rsa"
+variable "cat_key_file" {
+  default = "cat ~/.ssh/tf-ssh-key.pub"
+}
+
+variable "private_ssh_key"{
+  default     = "~/.ssh/tf-ssh-key"
 }

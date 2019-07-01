@@ -30,8 +30,10 @@ variable "docker_disk_type" {
   default = "pd-standard"
 }
 
-variable "base_image" {
-  default = "debian-cloud/debian-9"
+variable "base_image_family" {
+}
+
+variable "base_image_name" {
 }
 
 variable "subnetwork-name" {

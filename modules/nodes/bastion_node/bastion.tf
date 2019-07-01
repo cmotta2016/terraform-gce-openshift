@@ -1,7 +1,3 @@
-locals {
-  bastion_ssh_publickey_file = "${var.bastion_ssh_key_file}.pub"
-}
-
 resource "google_compute_instance" "bastion_node" {
  name         = "${var.clusterid}-bastion"
  machine_type = "${var.bastion_size}"
@@ -10,18 +6,18 @@ resource "google_compute_instance" "bastion_node" {
   ocp-cluster = "${var.clusterid}"
   osecluster-type = "bastion"
   VmDnsSetting = "GlobalOnly"
-  ssh-keys = "jeniffer_jc29:${file(local.bastion_ssh_publickey_file)}"
+  ssh-keys = "jeniffer_jc29:${file(var.bastion_ssh_key_file)}"
  }
  boot_disk {
   device_name = "${var.clusterid}-bastion"
   initialize_params {
-   image = "${var.base_image}"
+   image = "${var.base_image_family}/${var.base_image_name}"
    size  = "${var.bastion_disk_size}" 
    type  = "${var.bastion_disk_type}"
    }
  }
 // Pesquisar como rodar startup script a partir de um arquivo
- metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq apache2"
+// metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq apache2"
  network_interface {
   network = "${var.clusterid}-net"
   subnetwork = "${var.subnetwork-name}" 
@@ -35,5 +31,5 @@ resource "google_compute_instance" "bastion_node" {
  scheduling {
   on_host_maintenance = "MIGRATE"
  }
- depends_on = [google_compute_address.bastion-public-ip]
+ depends_on = ["google_compute_address.bastion-public-ip"]
 }
