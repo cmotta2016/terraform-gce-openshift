@@ -9,6 +9,9 @@ resource "google_compute_project_metadata_item" "ssh-key" {
 module "network" {
   source  = "./modules/network"
   project = "${var.project}"
+  zone = "${var.zone}"
+  region = "${var.region}"
+  clusterid = "${var.clusterid}"
 }
 
 // Module to create custom image
@@ -19,6 +22,7 @@ module "create_image" {
   region = "${var.region}"
   clusterid = "${var.clusterid}"
   image-family = "${var.image-family}"
+  network-name = "${module.network.subnetwork-name}"
 }
 
 // Module to deploy bastion node

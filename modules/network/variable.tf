@@ -1,17 +1,13 @@
 variable "project" {
-  default = "terraform-project-244918"
 }
 
 variable "region" {
-  default = "southamerica-east1"
 }
 
 variable "zone" {
-  default = "southamerica-east1-b"
 }
 
 variable "clusterid" {
-  default = "terraform-project"
 }
 
 variable "private_ranges" {

@@ -2,6 +2,7 @@
 resource "null_resource" "create_raw_disk" {
   provisioner "local-exec" {
     command = "wget http://repo.necol.org/iso/rhel-server-7.5-x86_64-kvm.qcow2; sudo apt install qemu-utils -y; qemu-img convert -p -S 4096 -f qcow2 -O raw rhel-server-7.5-x86_64-kvm.qcow2 disk.raw; tar -Szcf rhel-7.5.tar.gz disk.raw"
+//    command = "if [ ! -f rhel-server-7.5-x86_64-kvm.qcow2 ]; then wget http://repo.necol.org/iso/rhel-server-7.5-x86_64-kvm.qcow2; fi; apt install qemu-utils -y; if [ ! -f disk.raw ]; then qemu-img convert -p -S 4096 -f qcow2 -O raw rhel-server-7.5-x86_64-kvm.qcow2 disk.raw; fi; tar -Szcf rhel-7.5.tar.gz disk.raw"
  }
 }
 

@@ -1,5 +1,5 @@
 variable "project" {
-  default = "terraform-project-244918"
+  default = "terraform-openshift"
 }
 
 variable "region" {
@@ -11,7 +11,7 @@ variable "zone" {
 }
 
 variable "clusterid" {
-  default = "terraform-project"
+  default = "osecluster"
 }
 
 variable "bastion_size" {
