@@ -33,3 +33,23 @@ variable "cat_key_file" {
 variable "private_ssh_key"{
   default     = "~/.ssh/tf-ssh-key"
 }
+
+variable "bastion_ssh_key_file" {
+  default = "~/.ssh/tf-ssh-key"
+}
+
+variable "bastion_ssh_publickey_file" {
+  default = "~/.ssh/tf-ssh-key.pub"
+}
+
+variable "rhn_username"{
+  default = ""
+}
+
+variable "rhn_password"{
+  default = ""
+}
+
+variable "pool_id"{
+   default = ""
+}

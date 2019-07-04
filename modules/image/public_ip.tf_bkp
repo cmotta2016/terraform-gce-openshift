@@ -1,0 +1,5 @@
+// Create public IP for bastion node
+resource "google_compute_address" "temp-public-ip" {
+ name = "${var.clusterid}-temp"
+ region = "${var.region}"
+}

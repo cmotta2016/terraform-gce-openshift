@@ -21,7 +21,7 @@ resource "google_compute_instance" "infra_node" {
   mode = "READ_WRITE"
  }
 // Pesquisar como rodar startup script a partir de um arquivo
- metadata_startup_script = "mkfs.ext4 /dev/disk/by-id/google-terraform-project-infra-0-docker; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value /dev/disk/by-id/google-terraform-project-infra-0-docker) /var/lib/docker ext4 defaults,discard 0 2 >> /etc/fstab; mount -a"
+ metadata_startup_script = "mkfs.xfs /dev/disk/by-id/google-terraform-project-infra-0-docker; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value /dev/disk/by-id/google-terraform-project-infra-0-docker) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
  network_interface {
   network = "${var.clusterid}-net"
   subnetwork = "${var.subnetwork-name}"

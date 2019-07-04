@@ -11,13 +11,12 @@ resource "google_compute_instance" "bastion_node" {
  boot_disk {
   device_name = "${var.clusterid}-bastion"
   initialize_params {
-   image = "${var.base_image_family}/${var.base_image_name}"
+   image = "${var.base_image}"
    size  = "${var.bastion_disk_size}" 
    type  = "${var.bastion_disk_type}"
    }
  }
 // Pesquisar como rodar startup script a partir de um arquivo
-// metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq apache2"
  network_interface {
   network = "${var.clusterid}-net"
   subnetwork = "${var.subnetwork-name}" 

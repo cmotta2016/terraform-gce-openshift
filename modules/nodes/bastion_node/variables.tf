@@ -22,10 +22,13 @@ variable "bastion_disk_type" {
   default = "pd-standard"
 }
 
-variable "base_image_family" {
-}
+//variable "base_image_family" {
+//}
 
-variable "base_image_name" {
+//variable "base_image_name" {
+//}
+
+variable "base_image" {
 }
 
 variable "subnetwork-name" {
