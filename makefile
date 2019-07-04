@@ -16,3 +16,7 @@ bastion_node:
 
 master_node:
 	terraform apply -auto-approve -target module.master_node
+
+
+infra_node:
+	terraform apply -auto-approve -target module.infra_node

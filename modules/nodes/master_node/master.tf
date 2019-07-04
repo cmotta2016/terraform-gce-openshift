@@ -21,7 +21,7 @@ resource "google_compute_instance" "master_node" {
   device_name = "${var.clusterid}-master-0-docker"
   mode = "READ_WRITE"
  }
- metadata_startup_script = "mkfs.xfs /dev/disk/by-id/google-terraform-project-master-0-docker; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value /dev/disk/by-id/google-terraform-project-master-0-docker) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
+ metadata_startup_script = "mkfs.xfs /dev/disk/by-id/google-osecluster-master-0-docker; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value /dev/disk/by-id/google-osecluster-master-0-docker) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
  network_interface {
   network = "${var.clusterid}-net"
   subnetwork = "${var.subnetwork-name}"

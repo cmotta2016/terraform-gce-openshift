@@ -71,3 +71,14 @@ module "master_node" {
   subnetwork-name = "${module.network.subnetwork-name}"
   base_image = "${module.create_base_image.image_name}"
 }
+
+// Module to deploy infra node
+module "infra_node" {
+  source = "./modules/nodes/infra_node"
+  project = "${var.project}"
+  zone = "${var.zone}"
+  region = "${var.region}"
+  clusterid = "${var.clusterid}"
+  subnetwork-name = "${module.network.subnetwork-name}"
+  base_image = "${module.create_base_image.image_name}"
+}
