@@ -1,5 +1,5 @@
 variable "project" {
-  default = "terraform-openshift"
+  default = "your-projectid"
 }
 
 variable "region" {
@@ -16,7 +16,7 @@ variable "clusterid" {
 
 // Used to log on google cloud console
 variable "google_user" {
-  default = "jeniffer_jc29"
+  default = "you_google_cloud_user"
 }
 
 variable "private_range" {
@@ -84,11 +84,11 @@ variable "image_family" {
 }
 
 variable "private_ssh_key"{
-  default     = "~/.ssh/tf-ssh-key"
+  default     = "~/.ssh/you-ssh-key"
 }
 
 variable "public_ssh_key" {
-  default = "~/.ssh/tf-ssh-key.pub"
+  default = "~/.ssh/you-ssh-key.pub"
 }
 
 variable "rhn_username"{

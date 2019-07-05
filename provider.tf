@@ -1,6 +1,6 @@
 // Configure the Google Cloud provider
 provider "google" {
- credentials = "${file("terraform-openshift-ef2ee8cedf72.json")}"
+ credentials = "${file("your-service-account-file.json")}"
  project     = "${var.project}"
  region      = "${var.region}"
  zone        = "${var.zone}"
