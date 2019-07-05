@@ -1,41 +1,32 @@
-variable "project" {
-}
-
 variable "region" {
-}
-
-variable "zone" {
 }
 
 variable "clusterid" {
 }
 
-variable "bastion_size" {
-  default = "g1-small"
+variable "bastion_instance_size" {
 }
 
 variable "bastion_disk_size" {
-  default = "15"
 }
 
 variable "bastion_disk_type" {
-  default = "pd-standard"
 }
 
 variable "base_image" {
 }
 
-variable "subnetwork-name" {
-}
-
-variable "bastion_ssh_key_file" {
-  default = "~/.ssh/tf-ssh-key"
-}
-
-variable "bastion_ssh_publickey_file" {
-  default = "~/.ssh/tf-ssh-key.pub"
+variable "subnetwork_name" {
 }
 
 variable "private_ssh_key"{
-  default     = "~/.ssh/tf-ssh-key"
+}
+
+variable "rhn_username"{
+}
+
+variable "rhn_password"{
+}
+
+variable "pool_id"{
 }

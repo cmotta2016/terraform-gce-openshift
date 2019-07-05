@@ -57,7 +57,7 @@ resource "google_compute_firewall" "any-to-master" {
  }
  priority = "1000"
  direction = "INGRESS"
- source_ranges = ["${var.private_ranges}", "${var.public_ranges}"]
+ source_ranges = ["${var.private_range}", "${var.public_range}"]
  target_tags = ["${var.clusterid}-master"]
  depends_on = [google_compute_subnetwork.osecluster-subnetwork]
 }

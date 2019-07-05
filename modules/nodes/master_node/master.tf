@@ -1,6 +1,6 @@
 resource "google_compute_instance" "master_node" {
  name         = "${var.clusterid}-master-0"
- machine_type = "${var.master_size}"
+ machine_type = "${var.master_instance_size}"
  tags         = ["${var.clusterid}-master", "${var.clusterid}-node"]
  metadata = {
   ocp-cluster = "${var.clusterid}"
@@ -23,9 +23,9 @@ resource "google_compute_instance" "master_node" {
  metadata_startup_script = "export DOCKERDEVICE=$(readlink -f /dev/disk/by-id/google-*docker*); mkfs.xfs $DOCKERDEVICE; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value $DOCKERDEVICE) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
  network_interface {
   network = "${var.clusterid}-net"
-  subnetwork = "${var.subnetwork-name}"
+  subnetwork = "${var.subnetwork_name}"
   access_config {
-    nat_ip = "${google_compute_address.master-public-ip.address}"
+    nat_ip = "${google_compute_address.master_public_ip.address}"
    }
  }
  service_account {
@@ -36,5 +36,5 @@ resource "google_compute_instance" "master_node" {
  }
 
 // Define dependency resources
- depends_on = ["google_compute_disk.master-docker-disk", "google_compute_address.master-public-ip"]
+ depends_on = ["google_compute_disk.master_docker_disk", "google_compute_address.master_public_ip"]
 }

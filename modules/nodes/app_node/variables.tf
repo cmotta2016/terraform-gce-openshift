@@ -1,63 +1,34 @@
-variable "project" {
-}
-
 variable "region" {
-}
-
-variable "zone" {
 }
 
 variable "clusterid" {
 }
 
-variable "app_size" {
-  default = "g1-small"
-}
-
-variable "boot_disk_size" {
-  default = "15"
-}
-
-variable "boot_disk_type" {
-  default = "pd-standard"
-}
-
-variable "docker_disk_size" {
-  default = "30"
-}
-
-variable "docker_disk_type" {
-  default = "pd-standard"
+variable "app_instance_size" {
 }
 
 variable "gfs_disk_size" {
-  default = "30"
 }
 
 variable "gfs_disk_type" {
-  default = "pd-standard"
 }
 
-variable "subnetwork-name" {
+variable "boot_disk_size" {
+}
+
+variable "docker_disk_size" {
+}
+
+variable "boot_disk_type" {
+}
+
+variable "docker_disk_type" {
+}
+
+variable "subnetwork_name" {
 }
 
 variable "number" {
- default = 3
-}
-
-variable "private_ssh_key"{
-  default     = "~/.ssh/tf-ssh-key"
-}
-
-variable "private_ranges" {
- default = "10.240.0.0/24"
-}
-
-variable "public_ranges" {
- default = "0.0.0.0/0"
-}
-
-variable "network-name" {
 }
 
 variable "base_image" {

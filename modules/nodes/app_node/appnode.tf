@@ -1,7 +1,7 @@
 resource "google_compute_instance" "app_node" {
  count = "${var.number}"
  name = "${var.clusterid}-app-${count.index}"
- machine_type = "${var.app_size}"
+ machine_type = "${var.app_instance_size}"
  tags = ["${var.clusterid}-node"]
  metadata = {
   ocp-cluster = "${var.clusterid}"
@@ -17,29 +17,29 @@ resource "google_compute_instance" "app_node" {
    }
  }
  attached_disk {
-  source = "${google_compute_disk.app-docker-disk[count.index].name}"
-  device_name = "${google_compute_disk.app-docker-disk[count.index].name}"
+  source = "${google_compute_disk.app_docker_disk[count.index].name}"
+  device_name = "${google_compute_disk.app_docker_disk[count.index].name}"
   mode = "READ_WRITE"
  }
  attached_disk {
-  source = "${google_compute_disk.app-gfs-disk-1[count.index].name}"
-  device_name = "${google_compute_disk.app-gfs-disk-1[count.index].name}"
+  source = "${google_compute_disk.app_gfs_disk_1[count.index].name}"
+  device_name = "${google_compute_disk.app_gfs_disk_1[count.index].name}"
   mode = "READ_WRITE"
  }
  attached_disk {
-  source = "${google_compute_disk.app-gfs-disk-2[count.index].name}"
-  device_name = "${google_compute_disk.app-gfs-disk-2[count.index].name}"
+  source = "${google_compute_disk.app_gfs_disk_2[count.index].name}"
+  device_name = "${google_compute_disk.app_gfs_disk_2[count.index].name}"
   mode = "READ_WRITE"
  }
  attached_disk {
-  source = "${google_compute_disk.app-gfs-disk-3[count.index].name}"
-  device_name = "${google_compute_disk.app-gfs-disk-3[count.index].name}"
+  source = "${google_compute_disk.app_gfs_disk_3[count.index].name}"
+  device_name = "${google_compute_disk.app_gfs_disk_3[count.index].name}"
   mode = "READ_WRITE"
  }
  metadata_startup_script = "export DOCKERDEVICE=$(readlink -f /dev/disk/by-id/google-*docker*); mkfs.xfs $DOCKERDEVICE; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value $DOCKERDEVICE) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
  network_interface {
   network = "${var.clusterid}-net"
-  subnetwork = "${var.subnetwork-name}"
+  subnetwork = "${var.subnetwork_name}"
  access_config {
    }
  }
@@ -51,5 +51,5 @@ resource "google_compute_instance" "app_node" {
  }
 
 // Define dependency resources
-depends_on = ["google_compute_disk.app-docker-disk", "google_compute_disk.app-gfs-disk-3"]
+depends_on = ["google_compute_disk.app_docker_disk", "google_compute_disk.app_gfs_disk_3"]
 }

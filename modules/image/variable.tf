@@ -10,15 +10,14 @@ variable "region" {
 variable "clusterid" {
 }
 
-variable "image-family" {
+variable "image_family" {
 }
 
 variable "temp_size" {
   default = "g1-small"
 }
 
-variable "public_ranges" {
- default = "0.0.0.0/0"
+variable "public_range" {
 }
 
 variable "temp_disk_size" {
@@ -42,4 +41,13 @@ variable "eth-config" {
 
 variable "script-prep-image" {
   default = "~/terraform-gce-openshift/modules/image/script.sh"
+}
+
+variable "rhn_username" {
+}
+
+variable "rhn_password" {
+}
+
+variable "pool_id" {
 }

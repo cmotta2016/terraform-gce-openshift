@@ -6,7 +6,7 @@ resource "null_resource" "create_raw_disk" {
 }
 
 // Create temporary bucket
-resource "google_storage_bucket" "temp-image-store" {
+resource "google_storage_bucket" "temp_image_store" {
   name = "${var.clusterid}-tf-gce-ose-image-temp"
   storage_class = "REGIONAL"
   location = "${var.region}"
@@ -16,11 +16,11 @@ resource "google_storage_bucket" "temp-image-store" {
 }
 
 // Upload tar file to temporary bucket
-resource "google_storage_bucket_object" "rhel-temp-image" {
+resource "google_storage_bucket_object" "rhel_temp_image" {
   name = "rhel-7.5.tar.gz"
   source = "./rhel-7.5.tar.gz"
-  bucket = "${google_storage_bucket.temp-image-store.name}"
-  depends_on = ["google_storage_bucket.temp-image-store", "null_resource.create_raw_disk"]
+  bucket = "${google_storage_bucket.temp_image_store.name}"
+  depends_on = ["google_storage_bucket.temp_image_store", "null_resource.create_raw_disk"]
 }
 
 // Remove files from localhost
@@ -28,27 +28,27 @@ resource "null_resource" "delete_files" {
   provisioner "local-exec" {
     command = "rm -rf rhel-* disk.raw"
   }
-  depends_on = ["google_storage_bucket_object.rhel-temp-image"]
+  depends_on = ["google_storage_bucket_object.rhel_temp_image"]
 }
 
 // Create temp image from tar file
 resource "google_compute_image" "create_temp_rhel_image" {
   name = "${var.clusterid}-rhel-temp-image"
-  family = "${var.image-family}" 
+  family = "${var.image_family}" 
   raw_disk {
-    source = "https://storage.googleapis.com/${google_storage_bucket_object.rhel-temp-image.bucket}/${google_storage_bucket_object.rhel-temp-image.name}"
+    source = "https://storage.googleapis.com/${google_storage_bucket_object.rhel_temp_image.bucket}/${google_storage_bucket_object.rhel_temp_image.name}"
   }
- depends_on = ["google_storage_bucket_object.rhel-temp-image"]
+ depends_on = ["google_storage_bucket_object.rhel_temp_image"]
 }
 
 // Create public IP for temporary instance
-resource "google_compute_address" "temp-public-ip" {
+resource "google_compute_address" "temp_public_ip" {
  name = "${var.clusterid}-temp"
  region = "${var.region}"
 }
 
 // Define firewall rules to allow incoming ssh connection to temp instance
-resource "google_compute_firewall" "ssh-temp" {
+resource "google_compute_firewall" "ssh_temp" {
  name = "${var.clusterid}-ssh-temp"
  network = "default"
 
@@ -59,7 +59,7 @@ resource "google_compute_firewall" "ssh-temp" {
 
  priority = "1000"
  direction = "INGRESS"
- source_ranges = ["${var.public_ranges}"]
+ source_ranges = ["${var.public_range}"]
  target_tags = ["${var.clusterid}-temp"]
 }
 
@@ -80,7 +80,7 @@ resource "google_compute_instance" "temp_instance" {
  network_interface {
   network = "default"
   access_config {
-    nat_ip = "${google_compute_address.temp-public-ip.address}"
+    nat_ip = "${google_compute_address.temp_public_ip.address}"
    }
  }
  service_account {
@@ -89,5 +89,5 @@ resource "google_compute_instance" "temp_instance" {
  scheduling {
   on_host_maintenance = "MIGRATE"
  }
- depends_on = ["google_compute_image.create_temp_rhel_image", "google_compute_address.temp-public-ip"]
+ depends_on = ["google_compute_image.create_temp_rhel_image", "google_compute_address.temp_public_ip"]
 }

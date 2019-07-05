@@ -1,12 +1,12 @@
 resource "google_compute_instance" "bastion_node" {
  name         = "${var.clusterid}-bastion"
- machine_type = "${var.bastion_size}"
+ machine_type = "${var.bastion_instance_size}"
  tags         = ["${var.clusterid}-bastion"]
  metadata = {
   ocp-cluster = "${var.clusterid}"
   osecluster-type = "bastion"
   VmDnsSetting = "GlobalOnly"
-  ssh-keys = "jeniffer_jc29:${file(var.bastion_ssh_key_file)}"
+  ssh-keys = "jeniffer_jc29:${file(var.private_ssh_key)}"
  }
  boot_disk {
   device_name = "${var.clusterid}-bastion"
@@ -19,9 +19,9 @@ resource "google_compute_instance" "bastion_node" {
 // Pesquisar como rodar startup script a partir de um arquivo
  network_interface {
   network = "${var.clusterid}-net"
-  subnetwork = "${var.subnetwork-name}" 
+  subnetwork = "${var.subnetwork_name}" 
  access_config {
-  nat_ip = "${google_compute_address.bastion-public-ip.address}"
+  nat_ip = "${google_compute_address.bastion_public_ip.address}"
    }
  }
  service_account {
@@ -30,5 +30,5 @@ resource "google_compute_instance" "bastion_node" {
  scheduling {
   on_host_maintenance = "MIGRATE"
  }
- depends_on = ["google_compute_address.bastion-public-ip"]
+ depends_on = ["google_compute_address.bastion_public_ip"]
 }

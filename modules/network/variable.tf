@@ -10,10 +10,8 @@ variable "zone" {
 variable "clusterid" {
 }
 
-variable "private_ranges" {
- default = "10.240.0.0/24"
+variable "private_range" {
 }
 
-variable "public_ranges" {
- default = "0.0.0.0/0"
+variable "public_range" {
 }

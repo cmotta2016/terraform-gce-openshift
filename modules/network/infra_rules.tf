@@ -23,7 +23,7 @@ resource "google_compute_firewall" "any-to-routers" {
  }
  priority = "1000"
  direction = "INGRESS"
- source_ranges = ["${var.public_ranges}"]
+ source_ranges = ["${var.public_range}"]
  target_tags = ["${var.clusterid}-infra"]
  depends_on = [google_compute_subnetwork.osecluster-subnetwork]
 }

@@ -1,6 +1,6 @@
 resource "google_compute_instance" "infra_node" {
  name         = "${var.clusterid}-infra-0"
- machine_type = "${var.infra_size}"
+ machine_type = "${var.infra_instance_size}"
  tags         = ["${var.clusterid}-infra", "${var.clusterid}-node"]
  metadata = {
   ocp-cluster = "${var.clusterid}"
@@ -24,9 +24,9 @@ resource "google_compute_instance" "infra_node" {
 // Pesquisar como rodar startup script a partir de um arquivo
  network_interface {
   network = "${var.clusterid}-net"
-  subnetwork = "${var.subnetwork-name}"
+  subnetwork = "${var.subnetwork_name}"
  access_config {
-  nat_ip = "${google_compute_address.apps-public-ip.address}"
+  nat_ip = "${google_compute_address.apps_public_ip.address}"
    }
  }
  service_account {
@@ -37,5 +37,5 @@ resource "google_compute_instance" "infra_node" {
  }
 
 // Define dependency resources
-depends_on = ["google_compute_disk.infra-docker-disk", "google_compute_address.apps-public-ip"]
+depends_on = ["google_compute_disk.infra_docker_disk", "google_compute_address.apps_public_ip"]
 }

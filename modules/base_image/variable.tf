@@ -10,5 +10,5 @@ variable "region" {
 variable "clusterid" {
 }
 
-variable "image-family" {
+variable "image_family" {
 }
