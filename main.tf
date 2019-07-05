@@ -69,6 +69,7 @@ module "master_node" {
   region = "${var.region}"
   clusterid = "${var.clusterid}"
   subnetwork-name = "${module.network.subnetwork-name}"
+  network-name = "${module.network.network-name}"
   base_image = "${module.create_base_image.image_name}"
 }
 
@@ -80,5 +81,28 @@ module "infra_node" {
   region = "${var.region}"
   clusterid = "${var.clusterid}"
   subnetwork-name = "${module.network.subnetwork-name}"
+  network-name = "${module.network.network-name}"
   base_image = "${module.create_base_image.image_name}"
+}
+
+// Module to deploy apps node
+module "app_node" {
+  source = "./modules/nodes/app_node"
+  project = "${var.project}"
+  zone = "${var.zone}"
+  region = "${var.region}"
+  clusterid = "${var.clusterid}"
+  subnetwork-name = "${module.network.subnetwork-name}"
+  network-name = "${module.network.network-name}"
+  base_image = "${module.create_base_image.image_name}"
+}
+
+// Module post install
+module "remove_scripts" {
+  source = "./modules/post_install"
+  zone = "${var.zone}"
+  master-name = "${module.master_node.master-name}"
+  clusterid = "${var.clusterid}"
+  infra-name = "${module.infra_node.infra-name}"
+  bastion_ip = "${module.bastion_node.bastion_public_ip}"
 }

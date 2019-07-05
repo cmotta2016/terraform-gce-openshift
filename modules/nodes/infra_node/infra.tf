@@ -10,7 +10,6 @@ resource "google_compute_instance" "infra_node" {
  boot_disk {
   device_name = "${var.clusterid}-infra-0"
   initialize_params {
-//   image = "${var.base_image_family}/${var.base_image_name}"   
    image = "${var.base_image}"
    size  = "${var.boot_disk_size}" 
    type  = "${var.boot_disk_type}"
@@ -21,8 +20,8 @@ resource "google_compute_instance" "infra_node" {
   device_name = "${var.clusterid}-infra-0-docker"
   mode = "READ_WRITE"
  }
+ metadata_startup_script = "export DOCKERDEVICE=$(readlink -f /dev/disk/by-id/google-*docker*); mkfs.xfs $DOCKERDEVICE; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value $DOCKERDEVICE) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
 // Pesquisar como rodar startup script a partir de um arquivo
- metadata_startup_script = "mkfs.xfs /dev/disk/by-id/google-osecluster-infra-0-docker; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value /dev/disk/by-id/google-osecluster-infra-0-docker) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
  network_interface {
   network = "${var.clusterid}-net"
   subnetwork = "${var.subnetwork-name}"

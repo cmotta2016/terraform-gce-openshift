@@ -24,6 +24,7 @@ resource "null_resource" "copy_files" {
       "sudo chmod +x /tmp/scripts/*",
       "sudo /tmp/scripts/rhn_register.sh ${var.rhn_username} ${var.rhn_password} ${var.pool_id}",
       "sudo /tmp/scripts/script.sh",
+      "sudo rm -rf /tmp/*",
       "sudo shutdown -P +1",
       "sudo echo 0",
     ]

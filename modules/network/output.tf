@@ -1,4 +1,4 @@
-output "network_name" {
+output "network-name" {
  value = "${google_compute_network.osecluster-network.name}"
 }
 

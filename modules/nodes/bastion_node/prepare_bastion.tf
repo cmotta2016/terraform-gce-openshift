@@ -13,11 +13,18 @@ resource "null_resource" "preparing_bastion" {
     source      = "${path.cwd}/modules/nodes/bastion_node/scripts/rhn_register.sh"
     destination = "/tmp/rhn_register.sh"
   }
+//  provisioner "file" {
+//    source      = "${path.cwd}/modules/nodes/bastion_node/conf/google-cloud.repo"
+//    destination = "/tmp/google-cloud.repo"
+//  }
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/rhn_register*",
       "sudo /tmp/rhn_register.sh ${var.rhn_username} ${var.rhn_password} ${var.pool_id}",
       "sudo cp -r /tmp/ansible.cfg /etc/ansible/ ",
+//      "sudo cp -r /tmp/google-cloud.repo /etc/yum.repos.d/",
+//      "sudo yum install google-cloud-sdk -y",
+      "sudo rm -rf /tmp/*",
       "sudo shutdown -r +1",
       "sudo echo 0",
     ]

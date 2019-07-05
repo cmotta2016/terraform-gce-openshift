@@ -24,12 +24,12 @@ resource "google_storage_bucket_object" "rhel-temp-image" {
 }
 
 // Remove files from localhost
-//resource "null_resource" "delete_files" {
-//  provisioner "local-exec" {
-//    command = "rm -rf rhel-* disk.raw"
-//  }
-//  depends_on = ["google_storage_bucket_object.rhel-temp-image"]
-//}
+resource "null_resource" "delete_files" {
+  provisioner "local-exec" {
+    command = "rm -rf rhel-* disk.raw"
+  }
+  depends_on = ["google_storage_bucket_object.rhel-temp-image"]
+}
 
 // Create temp image from tar file
 resource "google_compute_image" "create_temp_rhel_image" {

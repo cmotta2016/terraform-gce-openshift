@@ -11,7 +11,7 @@ resource "google_compute_instance" "app_node" {
  boot_disk {
   device_name = "${var.clusterid}-app-${count.index}"
   initialize_params {
-   image = "${var.base_image_family}/${var.base_image_name}"
+   image = "${var.base_image}"
    size  = "${var.boot_disk_size}" 
    type  = "${var.boot_disk_type}"
    }
@@ -36,7 +36,7 @@ resource "google_compute_instance" "app_node" {
   device_name = "${google_compute_disk.app-gfs-disk-3[count.index].name}"
   mode = "READ_WRITE"
  }
- metadata_startup_script = "mkfs.xfs /dev/disk/by-id/google-terraform-project-app-0-docker; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value /dev/disk/by-id/google-terraform-project-app-0-docker) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
+ metadata_startup_script = "export DOCKERDEVICE=$(readlink -f /dev/disk/by-id/google-*docker*); mkfs.xfs $DOCKERDEVICE; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value $DOCKERDEVICE) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
  network_interface {
   network = "${var.clusterid}-net"
   subnetwork = "${var.subnetwork-name}"

@@ -38,15 +38,27 @@ variable "gfs_disk_type" {
   default = "pd-standard"
 }
 
-variable "base_image_family" {
-}
-
-variable "base_image_name" {
-}
-
 variable "subnetwork-name" {
 }
 
 variable "number" {
  default = 3
+}
+
+variable "private_ssh_key"{
+  default     = "~/.ssh/tf-ssh-key"
+}
+
+variable "private_ranges" {
+ default = "10.240.0.0/24"
+}
+
+variable "public_ranges" {
+ default = "0.0.0.0/0"
+}
+
+variable "network-name" {
+}
+
+variable "base_image" {
 }
