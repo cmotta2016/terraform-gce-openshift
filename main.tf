@@ -8,7 +8,7 @@ resource "null_resource" "create_ssh_key" {
 // Add metadata to all project
 resource "google_compute_project_metadata_item" "ssh-key" {
   key = "sshKeys"
-  value = "jeniffer_jc29:${file(var.public_ssh_key)}"
+  value = "${var.google_user}:${file(var.public_ssh_key)}"
   project = "${var.project}"
   depends_on = ["null_resource.create_ssh_key"]
 }
