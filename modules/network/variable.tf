@@ -19,6 +19,6 @@ variable "public_range" {
 variable "managed-zone-name" {
 }
 
-variable "domaim" {
+variable "domain" {
 }
 

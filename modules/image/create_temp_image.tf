@@ -6,8 +6,8 @@ resource "null_resource" "create_raw_disk" {
 }
 
 // Create temporary bucket
-resource "google_storage_bucket" "temp_image_store" {
-  name = "${var.clusterid}-tf-gce-ose-image-temp"
+resource "google_storage_bucket" "temp_bucket" {
+  name = "${var.clusterid}-temp-bucket-name"
   storage_class = "REGIONAL"
   location = "${var.region}"
   labels = {
@@ -19,8 +19,8 @@ resource "google_storage_bucket" "temp_image_store" {
 resource "google_storage_bucket_object" "rhel_temp_image" {
   name = "rhel-7.5.tar.gz"
   source = "./rhel-7.5.tar.gz"
-  bucket = "${google_storage_bucket.temp_image_store.name}"
-  depends_on = ["google_storage_bucket.temp_image_store", "null_resource.create_raw_disk"]
+  bucket = "${google_storage_bucket.temp_bucket.name}"
+  depends_on = ["google_storage_bucket.temp_bucket", "null_resource.create_raw_disk"]
 }
 
 // Remove files from localhost

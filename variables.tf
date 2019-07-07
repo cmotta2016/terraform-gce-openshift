@@ -1,5 +1,5 @@
 variable "project" {
-  default = "your-projectid"
+  default = "<your_project_id>"
 }
 
 variable "region" {
@@ -11,12 +11,12 @@ variable "zone" {
 }
 
 variable "clusterid" {
-  default = "osecluster"
+  default = "<your_cluster_id>"
 }
 
 // Used to log on google cloud console
 variable "google_user" {
-  default = "you_google_cloud_user"
+  default = "<your_google_user_account>"
 }
 
 variable "private_range" {
@@ -28,11 +28,11 @@ variable "public_range" {
 }
 
 variable "managed-zone-name" {
- default = "your-managed-zone-name"
+ default = "<your-managerd-domain>"
 }
 
-variable "domaim" {
- default = "your.domain."
+variable "domain" {
+ default = "<your_domain>."
 }
 
 variable "bastion_instance_size" {
@@ -92,11 +92,11 @@ variable "image_family" {
 }
 
 variable "private_ssh_key"{
-  default     = "~/.ssh/you-ssh-key"
+  default     = "~/.ssh/<your_ssh_key>"
 }
 
 variable "public_ssh_key" {
-  default = "~/.ssh/you-ssh-key.pub"
+  default = "~/.ssh/<your_ssh_key>.pub"
 }
 
 variable "rhn_username"{

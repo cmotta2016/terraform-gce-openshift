@@ -5,7 +5,7 @@ resource "google_compute_address" "bastion_public_ip" {
 }
 
 // Create public IP for infra node
-resource "google_compute_address" "apps_public_ip" {
+resource "google_compute_address" "infra_public_ip" {
  name = "${var.clusterid}-apps"
  region = "${var.region}"
 }

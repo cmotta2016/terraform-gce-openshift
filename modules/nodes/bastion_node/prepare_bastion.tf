@@ -2,7 +2,8 @@ resource "null_resource" "preparing_bastion" {
   connection {
     type     = "ssh"
     user     = "jeniffer_jc29"
-    host     = "${google_compute_address.bastion_public_ip.address}"
+    host = "${var.bastion_public_ip}"
+//   host     = "${google_compute_address.bastion_public_ip.address}"
     private_key = "${file(var.private_ssh_key)}"
   }
   provisioner "file" {

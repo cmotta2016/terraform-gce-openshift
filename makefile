@@ -1,9 +1,38 @@
+infrastructure:
+	@[ "${rhn_username}" ] || ( echo ">> rhn_username is not set"; exit 1 )
+	@[ "${rhn_password}" ] || ( echo ">> rhn_password is not set"; exit 1 )
+	@[ "${pool_id}" ] || ( echo ">> pool_id is not set"; exit 1 )
+	# Initializing Terraform
+	terraform init
+	# Creating ssh key pair
+	terraform apply -auto-approve -target null_resource.create_ssh_key
+	# Creating network environment (network, subnetwork, firewall rules, public ips and ssh-key)
+	terraform apply -auto-approve -target module.network -target google_compute_project_metadata_item.ssh-key
+	# Creating temporary rhel image
+	terraform apply -auto-approve -target module.create_temp_image -var 'rhn_username=${rhn_username}' -var 'rhn_password=${rhn_password}'
+	# Creating rhel base image
+	terraform apply -auto-approve -target module.create_base_image
+	# Removing temporary instance, temporary image, temporary tar file and temporary bucket
+	terraform destroy -auto-approve -target module.create_temp_image
+	# Creating Bastion Node
+	terraform apply -auto-approve -target module.bastion_node -var 'rhn_username=${rhn_username}' -var 'rhn_password=${rhn_password}' -var 'pool_id=${pool_id}'
+	# Creating Master Node
+	terraform apply -auto-approve -target module.master_node
+	# Creating Infra Node
+	terraform apply -auto-approve -target module.infra_node
+	# Creating App Nodes
+	terraform apply -auto-approve -target module.app_node
+	# Removing startup scripts from instances
+	terraform apply -auto-approve -target module.remove_scripts
+
 create_base_image:	
 	@[ "${rhn_username}" ] || ( echo ">> rhn_username is not set"; exit 1 )
 	@[ "${rhn_password}" ] || ( echo ">> rhn_password is not set"; exit 1 )
 	# Initializing Terraform
 	terraform init
-	# Creating network environment (network, subnetwork, firewall rules and ssh-key
+	# Creating ssh key pair
+	terraform apply -auto-approve -target null_resource.create_ssh_key
+	# Creating network environment (network, subnetwork, firewall rules, public ips and ssh-key)
 	terraform apply -auto-approve -target module.network -target google_compute_project_metadata_item.ssh-key
 	# Creating temporary rhel image
 	terraform apply -auto-approve -target module.create_temp_image -var 'rhn_username=${rhn_username}' -var 'rhn_password=${rhn_password}'

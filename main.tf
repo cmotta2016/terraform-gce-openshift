@@ -23,7 +23,7 @@ module "network" {
   private_range = "${var.private_range}"
   public_range = "${var.public_range}"
   managed-zone-name = "${var.managed-zone-name}"
-  domaim = "${var.domain}"
+  domain = "${var.domain}"
 }
 
 // Module to create and prepare temp image
@@ -126,5 +126,5 @@ module "remove_scripts" {
   master_instance_name = "${module.master_node.master_instance_name}"
   clusterid = "${var.clusterid}"
   infra_instance_name = "${module.infra_node.infra_instance_name}"
-  bastion_ip = "${module.bastion_node.bastion_public_ip}"
+  bastion_ip = "${module.network.bastion_public_ip}"
 }

@@ -15,5 +15,5 @@ output "master_public_ip" {
 }
 
 output "infra_public_ip" {
-  value = "${google_compute_address.apps_public_ip.address}"
+  value = "${google_compute_address.infra_public_ip.address}"
 }
