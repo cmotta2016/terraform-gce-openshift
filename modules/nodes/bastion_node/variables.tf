@@ -16,7 +16,13 @@ variable "bastion_disk_type" {
 variable "base_image" {
 }
 
+variable "network_name" {
+}
+
 variable "subnetwork_name" {
+}
+
+variable "bastion_public_ip" {
 }
 
 variable "private_ssh_key"{

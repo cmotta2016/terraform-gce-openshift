@@ -22,6 +22,8 @@ module "network" {
   clusterid = "${var.clusterid}"
   private_range = "${var.private_range}"
   public_range = "${var.public_range}"
+  managed-zone-name = "${var.managed-zone-name}"
+  domaim = "${var.domain}"
 }
 
 // Module to create and prepare temp image
@@ -58,7 +60,9 @@ module "bastion_node" {
   bastion_disk_size = "${var.bastion_disk_size}"
   bastion_disk_type = "${var.bastion_disk_type}"
   private_ssh_key = "${var.private_ssh_key}"
+  network_name = "${module.network.network_name}"
   subnetwork_name = "${module.network.subnetwork_name}"
+  bastion_public_ip = "${module.network.bastion_public_ip}"
   base_image = "${module.create_base_image.image_name}"
   rhn_username = "${var.rhn_username}"
   rhn_password = "${var.rhn_password}"
@@ -75,7 +79,9 @@ module "master_node" {
   boot_disk_type = "${var.boot_disk_type}"
   docker_disk_size = "${var.docker_disk_size}"
   docker_disk_type = "${var.docker_disk_type}"
+  network_name = "${module.network.network_name}"
   subnetwork_name = "${module.network.subnetwork_name}"
+  master_public_ip = "${module.network.master_public_ip}"
   base_image = "${module.create_base_image.image_name}"
 }
 
@@ -89,6 +95,8 @@ module "infra_node" {
   boot_disk_type = "${var.boot_disk_type}"
   docker_disk_size = "${var.docker_disk_size}"
   docker_disk_type = "${var.docker_disk_type}"
+  infra_public_ip = "${module.network.infra_public_ip}"
+  network_name = "${module.network.network_name}"
   subnetwork_name = "${module.network.subnetwork_name}"
   base_image = "${module.create_base_image.image_name}"
 }

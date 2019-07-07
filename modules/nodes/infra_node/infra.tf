@@ -23,10 +23,11 @@ resource "google_compute_instance" "infra_node" {
  metadata_startup_script = "export DOCKERDEVICE=$(readlink -f /dev/disk/by-id/google-*docker*); mkfs.xfs $DOCKERDEVICE; mkdir -p /var/lib/docker; echo UUID=$(blkid -s UUID -o value $DOCKERDEVICE) /var/lib/docker xfs defaults,discard 0 2 >> /etc/fstab; mount -a"
 // Pesquisar como rodar startup script a partir de um arquivo
  network_interface {
-  network = "${var.clusterid}-net"
+  network = "${var.network-name}"
   subnetwork = "${var.subnetwork_name}"
  access_config {
-  nat_ip = "${google_compute_address.apps_public_ip.address}"
+//  nat_ip = "${google_compute_address.apps_public_ip.address}"
+  nat_ip = "${var.infra_public_ip}"
    }
  }
  service_account {
@@ -37,5 +38,5 @@ resource "google_compute_instance" "infra_node" {
  }
 
 // Define dependency resources
-depends_on = ["google_compute_disk.infra_docker_disk", "google_compute_address.apps_public_ip"]
+depends_on = ["google_compute_disk.infra_docker_disk"]
 }

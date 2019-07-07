@@ -18,10 +18,11 @@ resource "google_compute_instance" "bastion_node" {
  }
 // Pesquisar como rodar startup script a partir de um arquivo
  network_interface {
-  network = "${var.clusterid}-net"
+//  network = "${var.clusterid}-net"
+  network = "${var.network_name}"
   subnetwork = "${var.subnetwork_name}" 
  access_config {
-  nat_ip = "${google_compute_address.bastion_public_ip.address}"
+  nat_ip = "${var.bastion_public_ip}"
    }
  }
  service_account {
@@ -30,5 +31,5 @@ resource "google_compute_instance" "bastion_node" {
  scheduling {
   on_host_maintenance = "MIGRATE"
  }
- depends_on = ["google_compute_address.bastion_public_ip"]
+// depends_on = ["google_compute_address.bastion_public_ip"]
 }

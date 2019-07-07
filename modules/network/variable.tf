@@ -15,3 +15,10 @@ variable "private_range" {
 
 variable "public_range" {
 }
+
+variable "managed-zone-name" {
+}
+
+variable "domaim" {
+}
+

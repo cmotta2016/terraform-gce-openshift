@@ -27,6 +27,14 @@ variable "public_range" {
  default = "0.0.0.0/0"
 }
 
+variable "managed-zone-name" {
+ default = "your-managed-zone-name"
+}
+
+variable "domaim" {
+ default = "your.domain."
+}
+
 variable "bastion_instance_size" {
   default = "g1-small"
 }
