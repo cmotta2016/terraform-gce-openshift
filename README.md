@@ -25,8 +25,8 @@ cd terraform-gce-openshift
 
 5. Ajustar os arquivos provider.tf e variable.tf de acordo com seu ambiente
 
-6. Executar o comando 
-make rhn_username=carlos.motta.inovatech rhn_password=P@ssw0rd! pool_id=8a85f99b6b498682016bbec0d01111a2 create_base_image bastion_node master_node infra_node app_node remove_scripts
+6. Executar o comando
+make rhn_username=<your_username> rhn_password=<your_password> pool_id=<openshift_pool_id> infrastructure
 
 7. Para destruir o ambiente
 terraform destroy -auto-approve
