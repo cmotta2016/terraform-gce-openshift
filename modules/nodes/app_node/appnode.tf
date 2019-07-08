@@ -2,7 +2,7 @@ resource "google_compute_instance" "app_node" {
  count = "${var.number}"
  name = "${var.clusterid}-app-${count.index}"
  machine_type = "${var.app_instance_size}"
- tags = ["${var.clusterid}-node"]
+ tags = ["${var.clusterid}-node", "${var.clusterid}-gfs"]
  metadata = {
   ocp-cluster = "${var.clusterid}"
   osecluster-type = "app"
