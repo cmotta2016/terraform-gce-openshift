@@ -5,6 +5,11 @@ resource "null_resource" "create_ssh_key" {
   }
 }
 
+// Generate random name for bucket
+resource "random_id" "bucket_name" {
+  byte_length = 5
+}
+
 // Add metadata to all project
 resource "google_compute_project_metadata_item" "ssh-key" {
   key = "sshKeys"
@@ -39,6 +44,7 @@ module "create_temp_image" {
   rhn_username = "${var.rhn_username}"
   rhn_password = "${var.rhn_password}"
   pool_id = "${var.pool_id}"
+  bucket_name ="${random_id.bucket_name.hex}"
 }
 
 // Module to create and prepare temp image
@@ -67,6 +73,7 @@ module "bastion_node" {
   rhn_username = "${var.rhn_username}"
   rhn_password = "${var.rhn_password}"
   pool_id = "${var.pool_id}"
+  google_user = "${var.google_user}"
 }
 
 // Module to deploy master node

@@ -7,7 +7,8 @@ resource "null_resource" "create_raw_disk" {
 
 // Create temporary bucket
 resource "google_storage_bucket" "temp_bucket" {
-  name = "${var.clusterid}-temp-bucket-name"
+//  name = "${var.clusterid}-temp-bucket-name"
+  name = "${var.bucket_name}"
   storage_class = "REGIONAL"
   location = "${var.region}"
   labels = {

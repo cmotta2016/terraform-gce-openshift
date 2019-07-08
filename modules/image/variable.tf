@@ -51,3 +51,6 @@ variable "rhn_password" {
 
 variable "pool_id" {
 }
+
+variable "bucket_name" {
+}
