@@ -6,6 +6,10 @@ resource "google_compute_firewall" "node-to-node" {
   protocol = "udp"
   ports = ["4789"]
  }
+  allow {
+  protocol = "tcp"
+  ports = ["9100", "8444"]
+ }
  priority = "1000"
  direction = "INGRESS"
  source_tags = ["${var.clusterid}-node"]

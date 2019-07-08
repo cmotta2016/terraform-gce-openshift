@@ -4,7 +4,7 @@ resource "google_compute_firewall" "infra-to-infra" {
  network = "${google_compute_network.osecluster-network.name}"
  allow {
   protocol = "tcp"
-  ports = ["9200", "9300"]
+  ports = ["9090", "9100", "9200", "9300"]
  }
  priority = "1000"
  direction = "INGRESS"

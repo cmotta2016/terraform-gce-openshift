@@ -53,7 +53,7 @@ resource "google_compute_firewall" "any-to-master" {
  network = "${google_compute_network.osecluster-network.name}"
  allow {
   protocol = "tcp"
-  ports = ["443", "80"]
+  ports = ["443", "80", "8444"]
  }
  priority = "1000"
  direction = "INGRESS"
