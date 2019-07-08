@@ -36,3 +36,7 @@ variable "rhn_password"{
 
 variable "pool_id"{
 }
+
+// Used to log on google cloud console
+variable "google_user" {
+}

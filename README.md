@@ -13,16 +13,24 @@ $ unzip terraform_0.12.3_linux_amd64.zip
 $ cp terraform /usr/local/bin
 ```
 
-2. Install make 
+2. Install make
+```
 $ apt update && apt install make -y
+```
 
-3. Clona o repositório 
+3. Clona o repositório
+```
 $ git clone https://github.com/cmotta2016/terraform-gce-openshift.git cd terraform-gce-openshift
+```
 
 4. Ajustar os arquivos provider.tf e variable.tf de acordo com seu ambiente
 
 5. Executar o comando:
+```
 $  make rhn_username=<your_username> rhn_password=<your_password> pool_id=<openshift_pool_id> infrastructure
+```
 
-6. Para destruir o ambiente 
+6. Para destruir o ambiente
+```
 $ terraform destroy -auto-approve
+```
