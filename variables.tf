@@ -1,5 +1,5 @@
 variable "project" {
-  default = "osecluster"
+  default = "<you_project_id>"
 }
 
 variable "region" {
@@ -11,12 +11,12 @@ variable "zone" {
 }
 
 variable "clusterid" {
-  default = "osecluster"
+  default = "<you_clusterid>"
 }
 
 // Used to log on google cloud console
 variable "google_user" {
-  default = "jeniffer_jc29"
+  default = "<you_google_user_account>"
 }
 
 variable "private_range" {
@@ -28,11 +28,11 @@ variable "public_range" {
 }
 
 variable "managed-zone-name" {
- default = "linux4sysadmin-com-br"
+ default = "<your-managed_zone>"
 }
 
 variable "domain" {
- default = "linux4sysadmin.com.br."
+ default = "<you_domain>."
 }
 
 variable "bastion_instance_size" {
@@ -92,11 +92,11 @@ variable "image_family" {
 }
 
 variable "private_ssh_key"{
-  default     = "~/.ssh/ose-ssh-key"
+  default     = "~/.ssh/gce-ssh-key"
 }
 
 variable "public_ssh_key" {
-  default = "~/.ssh/ose-ssh-key.pub"
+  default = "~/.ssh/gce-ssh-key.pub"
 }
 
 variable "rhn_username"{

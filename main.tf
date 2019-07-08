@@ -7,7 +7,7 @@ resource "null_resource" "create_ssh_key" {
 
 // Generate random name for bucket
 resource "random_id" "bucket_name" {
-  byte_length = 5
+  byte_length = 12
 }
 
 // Add metadata to all project
