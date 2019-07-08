@@ -6,8 +6,12 @@ On Google Cloud
 3. Criar conta de serviço Role: Projeto > Editor O arquivo .json gerado será usado no arquivo provider do terraform
 
 On Workstation
-1. Instala o Terraform 
-$ wget https://releases.hashicorp.com/terraform/0.12.3/terraform_0.12.3_linux_amd64.zip unzip terraform_0.12.3_linux_amd64.zip cp terraform /usr/local/bin
+1. Instala o Terraform
+```
+$ wget https://releases.hashicorp.com/terraform/0.12.3/terraform_0.12.3_linux_amd64.zip 
+$ unzip terraform_0.12.3_linux_amd64.zip 
+$ cp terraform /usr/local/bin
+```
 
 2. Install make 
 $ apt update && apt install make -y
