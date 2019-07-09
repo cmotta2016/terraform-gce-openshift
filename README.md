@@ -1,36 +1,37 @@
 # Terraform provisioning Google Cloud infrastructure for Openshift cluster install
 On Google Cloud
-
-1. Criar projeto e habilitar faturamento
-2. Registrar DNS público
-3. Criar conta de serviço Role: Projeto > Editor O arquivo .json gerado será usado no arquivo provider do terraform
+1. Create project
+2. Registry DNS domain
+3. Create account service with Role: Project > Editor ane create json key.
+This .json file will be used by Terraform to provisioning infrastructure.
 
 On Workstation
-1. Instala o Terraform
+1. Install Terraform:
 ```
 $ wget https://releases.hashicorp.com/terraform/0.12.3/terraform_0.12.3_linux_amd64.zip 
 $ unzip terraform_0.12.3_linux_amd64.zip 
 $ cp terraform /usr/local/bin
 ```
 
-2. Install make
+2. Install make:
 ```
 $ apt update && apt install make -y
 ```
 
-3. Clona o repositório
+3. Clone this repo:
 ```
-$ git clone https://github.com/cmotta2016/terraform-gce-openshift.git cd terraform-gce-openshift
+$ git clone https://github.com/cmotta2016/terraform-gce-openshift.git 
+$ cd terraform-gce-openshift
 ```
 
-4. Ajustar os arquivos provider.tf e variable.tf de acordo com seu ambiente
+4. Adjust files provider.tf and variable.tf
 
-5. Executar o comando:
+5. Create infrastructure:
 ```
 $  make rhn_username=<your_username> rhn_password=<your_password> pool_id=<openshift_pool_id> infrastructure
 ```
 
-6. Para destruir o ambiente
+6. To destroy the environment:
 ```
 $ terraform destroy -auto-approve
 ```
