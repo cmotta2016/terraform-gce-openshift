@@ -1,6 +1,8 @@
 curl https://get.acme.sh | sh
 
-acme.sh --issue --dns -d 'console.openshift.linux4sysadmin.com.br' -d 'registry.apps.<your_clusterid>.<your.domain>' -d 'registry-console-default.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --issue --dns -d 'console.openshift.linux4sysadmin.com.br'  --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --issue --dns -d -d 'registry.apps.<your_clusterid>.<your.domain>'  --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --issue --dns -d 'registry-console-default.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
 acme.sh --issue --dns -d 'apps.<your_clusterid>.<your.domain>' -d '*.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
 
 Add records TXT on Cloud DNS
@@ -11,7 +13,9 @@ dig _acme-challenge.registry-console-default.apps.<your_clusterid>.<your.domain>
 dig _acme-challenge.apps.<your_clusterid>.<your.domain> IN TXT
 
 After dig commands return sucess values, create certs
-acme.sh --renew --dns -d 'console.<your_clusterid>.<your.domain>' -d 'registry.apps.<your_clusterid>.<your.domain>' -d 'registry-console-default.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --renew --dns -d 'console.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --renew --dns -d 'registry.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --renew --dns -d 'registry-console-default.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
 acme.sh --renew --dns -d 'apps.<your_clusterid>.<your.domain>' -d '*.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
 
 Update inventory file:
