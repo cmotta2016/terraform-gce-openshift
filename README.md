@@ -37,17 +37,17 @@ $ terraform destroy -auto-approve
 ```
 
 Install Openshift
-1. Copy private key to bastion node
+1. Copy private key to bastion node. 
 
 2. Create inventory file (use model in Install_Openshift directory)
 
 On Bastion Node
-3. Subscribe all instances:
+1. Subscribe all instances:
 ```
 $ ansible nodes -i inventory -b -m redhat_subscription -a "state=present username=<your_username> password=<your_password> pool_ids=<your_openshift_poolid>" 
 ```
 
-4. Enable repos:
+2. Enable repos:
 ```
 $ ansible nodes -i inventory -b -m shell -a \
     'subscription-manager repos --disable="*" \
@@ -57,18 +57,18 @@ $ ansible nodes -i inventory -b -m shell -a \
     --enable="rhel-7-server-ansible-2.6-rpms"'
 ```
 
-5. Update packages and reboot instances
+3. Update packages and reboot instances
 ```
 $ ansible all -i inventory -b -m yum -a "name=* state=latest"
 $ ansible all -i inventory -b -m command -a "reboot"
 ```
 
-6. Run prerequisites playbook
+4. Run prerequisites playbook
 ```
 $ ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
 ```
 
-7. Run deploy playbook
+5. Run deploy playbook
 ```
 $ ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
 ```
