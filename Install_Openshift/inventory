@@ -20,29 +20,29 @@ openshift_master_console_port=443
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 openshift_master_htpasswd_users={'admin': '$apr1$zQnWy2uU$ytWlD9id3xonNmZaNkI9q/', 'developer': '$apr1$uh1LkEbr$Evamtx9cd5WhqHr6W4puo0'}
 
-#openshift_master_identity_providers=[{'name': 'Ldap Provider', 'challenge': 'true', 'login': 'true', 'kind': 'LDAPPasswordIdentityProvider', 'attributes': {'id': ['dn'], 'email': ['mail'], 'name': ['cn'], 'preferredUsername': ['uid']}, 'bindDN': 'cn=dvopsusr,dc=msdigital,dc=xyz', 'bindPassword': 'teste2201', 'insecure': 'true', 'url': 'ldap://<your_clusterid>-bastion:389/ou=Users,dc=openshift,dc=<your_domain>,dc=xyz?uid'}]
+#openshift_master_identity_providers=[{'name': 'Ldap Provider', 'challenge': 'true', 'login': 'true', 'kind': 'LDAPPasswordIdentityProvider', 'attributes': {'id': ['dn'], 'email': ['mail'], 'name': ['cn'], 'preferredUsername': ['uid']}, 'bindDN': 'cn=dvopsusr,dc=msdigital,dc=xyz', 'bindPassword': 'teste2201', 'insecure': 'true', 'url': 'ldap://<CLUSTERID>-bastion:389/ou=Users,dc=openshift,dc=<DOMAIN>,dc=xyz?uid'}]
  
 os_sdn_network_plugin_name=redhat/openshift-ovs-networkpolicy
-openshift_master_cluster_hostname=console.<your_clusterid>.<your.domain>
-openshift_master_cluster_public_hostname=console.<your_clusterid>.<your.domain>
-openshift_master_default_subdomain=apps.<your_clusterid>.<your.domain>
+openshift_master_cluster_hostname=console.<CLUSTERID>.<DOMAIN>
+openshift_master_cluster_public_hostname=console.<CLUSTERID>.<DOMAIN>
+openshift_master_default_subdomain=apps.<CLUSTERID>.<DOMAIN>
 
 ## Usando certificados Let'Sencrypt
 #openshift_master_overwrite_named_certificates=true
-#openshift_master_named_certificates=[{ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/console.<your_clusterid>.<your.domain>/console.<your_clusterid>.<your.domain>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/console.<your_clusterid>.<your.domain>/console.<your_clusterid>.<your.domain>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/console.<your_clusterid>.<your.domain>/ca.cer", "names": [ "console.<your_clusterid>.<your.domain>" ] }]
+#openshift_master_named_certificates=[{ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/console.<CLUSTERID>.<DOMAIN>/console.<CLUSTERID>.<DOMAIN>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/console.<CLUSTERID>.<DOMAIN>/console.<CLUSTERID>.<DOMAIN>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/console.<CLUSTERID>.<DOMAIN>/ca.cer", "names": [ "console.<CLUSTERID>.<DOMAIN>" ] }]
 
-#openshift_hosted_router_certificate={ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<your_clusterid>.<your.domain>/apps.<your_clusterid>.<your.domain>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<your_clusterid>.<your.domain>/apps.<your_clusterid>.<your.domain>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<your_clusterid>.<your.domain>/ca.cer" }
+#openshift_hosted_router_certificate={ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<CLUSTERID>.<DOMAIN>/apps.<CLUSTERID>.<DOMAIN>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<CLUSTERID>.<DOMAIN>/apps.<CLUSTERID>.<DOMAIN>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<CLUSTERID>.<DOMAIN>/ca.cer" }
 
-#openshift_hosted_registry_routehost=registry.apps.<your_clusterid>.<your.domain>
-#openshift_hosted_registry_routecertificates={ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<your_clusterid>.<your.domain>/registry.apps.<your_clusterid>.<your.domain>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<your_clusterid>.<your.domain>/registry.apps.<your_clusterid>.<your.domain>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<your_clusterid>.<your.domain>/ca.cer" }
+#openshift_hosted_registry_routehost=registry.apps.<CLUSTERID>.<DOMAIN>
+#openshift_hosted_registry_routecertificates={ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<CLUSTERID>.<DOMAIN>/registry.apps.<CLUSTERID>.<DOMAIN>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<CLUSTERID>.<DOMAIN>/registry.apps.<CLUSTERID>.<DOMAIN>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<CLUSTERID>.<DOMAIN>/ca.cer" }
 #openshift_hosted_registry_routetermination=reencrypt
 
 oreg_url=registry.redhat.io/openshift3/ose-${component}:${version}
 openshift_examples_modify_imagestreams=false
 openshift_release=v3.11.117
 openshift_image_tag=v3.11.117
-oreg_auth_user=<your_username_for_registry.redhat>
-oreg_auth_password=<your_password_for_registry.redhat>
+oreg_auth_user=<USERNAME>
+oreg_auth_password=<PASSWORD>
 
 # Define o node padrão para deploy dos pods de router
 openshift_router_selector='node-role.kubernetes.io/infra=true'
@@ -51,7 +51,7 @@ openshift_router_selector='node-role.kubernetes.io/infra=true'
 openshift_hosted_registry_replicas=1
 openshift_hosted_registry_storage_kind=object
 openshift_hosted_registry_storage_provider=gcs
-openshift_hosted_registry_storage_gcs_bucket=registry-<your_clusterid>-<your_domain>
+openshift_hosted_registry_storage_gcs_bucket=registry-<CLUSTERID>-<DOMAIN>
 
 # special storage configs
 openshift_storage_glusterfs_image=registry.redhat.io/rhgs3/rhgs-server-rhel7:v3.11
@@ -72,61 +72,61 @@ openshift_storage_glusterfs_block_host_vol_create=true
 
 # Operators
 openshift_enable_olm=false
-#openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'<your_user>','password':'<your_password>','test_image':'mongodb/enterprise-operator:0.3.2'}]
+#openshift_additional_registry_credentials=[{'host':'registry.connect.redhat.com','user':'<USERNAME>','password':'<PASSWORD>','test_image':'mongodb/enterprise-operator:0.3.2'}]
 
 # metrics configs
-openshift_metrics_install_metrics=false
-#openshift_metrics_duration=7
+openshift_metrics_install_metrics=true
+openshift_metrics_duration=7
 #openshift_metrics_cassandra_storage_type=dynamic
-#openshift_metrics_cassandra_storage_type=pv
-#openshift_metrics_cassandra_pvc_size=20Gi
-#openshift_metrics_hawkular_hostname=metrics.apps.<your_clusterid>.<your.domain>
-#openshift_metrics_cassandra_pvc_storage_class_name='glusterfs-storage-block'
-#openshift_metrics_hawkular_nodeselector={"node-role.kubernetes.io/infra": "true"}
-#openshift_metrics_cassandra_nodeselector={"node-role.kubernetes.io/infra": "true"}
-#openshift_metrics_heapster_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_metrics_cassandra_storage_type=pv
+openshift_metrics_cassandra_pvc_size=20Gi
+openshift_metrics_hawkular_hostname=metrics.apps.<CLUSTERID>.<DOMAIN>
+openshift_metrics_cassandra_pvc_storage_class_name='glusterfs-storage-block'
+openshift_metrics_hawkular_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_metrics_cassandra_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_metrics_heapster_nodeselector={"node-role.kubernetes.io/infra": "true"}
 
 # logging configs
-openshift_logging_install_logging=false
-#openshift_logging_es_pvc_dynamic=true
-#openshift_logging_elasticsearch_storage_type=pvc
-#openshift_logging_storage_kind=dynamic
-#openshift_logging_es_pvc_storage_class_name='glusterfs-storage-block'
-#openshift_logging_es_pvc_size=20Gi
-#openshift_logging_es_memory_limit=2G
-#openshift_logging_kibana_hostname=kibana.apps.<your_clusterid>.<your.domain>
-#openshift_logging_curator_nodeselector={"node-role.kubernetes.io/infra": "true"}
-#openshift_logging_kibana_nodeselector={"node-role.kubernetes.io/infra": "true"}
-#openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra": "true"}
-#openshift_logging_curator_default_days=3
+openshift_logging_install_logging=true
+openshift_logging_es_pvc_dynamic=true
+openshift_logging_elasticsearch_storage_type=pvc
+openshift_logging_storage_kind=dynamic
+openshift_logging_es_pvc_storage_class_name='glusterfs-storage-block'
+openshift_logging_es_pvc_size=20Gi
+openshift_logging_es_memory_limit=2G
+openshift_logging_kibana_hostname=kibana.apps.<CLUSTERID>.<DOMAIN>
+openshift_logging_curator_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_logging_kibana_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_logging_curator_default_days=3
 
 # monitoring configs
-openshift_cluster_monitoring_operator_install=false
-#openshift_cluster_monitoring_operator_prometheus_storage_enabled=true
-#openshift_cluster_monitoring_operator_alertmanager_storage_enabled=true
-#openshift_cluster_monitoring_operator_prometheus_storage_capacity=15Gi
-#openshift_cluster_monitoring_operator_alertmanager_storage_capacity=5Gi
-#openshift_cluster_monitoring_operator_prometheus_storage_class_name=glusterfs-storage-block
-#openshift_cluster_monitoring_operator_alertmanager_storage_class_name=glusterfs-storage-block
-#openshift_cluster_monitoring_operator_node_selector={"node-role.kubernetes.io/infra":"true"}
+openshift_cluster_monitoring_operator_install=true
+openshift_cluster_monitoring_operator_prometheus_storage_enabled=true
+openshift_cluster_monitoring_operator_alertmanager_storage_enabled=true
+openshift_cluster_monitoring_operator_prometheus_storage_capacity=15Gi
+openshift_cluster_monitoring_operator_alertmanager_storage_capacity=5Gi
+openshift_cluster_monitoring_operator_prometheus_storage_class_name=glusterfs-storage-block
+openshift_cluster_monitoring_operator_alertmanager_storage_class_name=glusterfs-storage-block
+openshift_cluster_monitoring_operator_node_selector={"node-role.kubernetes.io/infra":"true"}
 
 [etcd]
-<your_clusterid>-master-0
+<CLUSTERID>-master-0
 
 [masters]
-<your_clusterid>-master-0
+<CLUSTERID>-master-0
 
 [nodes]
-<your_clusterid>-master-0 openshift_node_group_name='node-config-master'
-<your_clusterid>-infra-0 openshift_node_group_name='node-config-infra'
-<your_clusterid>-app-0 openshift_node_group_name='node-config-compute'
-<your_clusterid>-app-1 openshift_node_group_name='node-config-compute'
-<your_clusterid>-app-2 openshift_node_group_name='node-config-compute'
+<CLUSTERID>-master-0 openshift_node_group_name='node-config-master'
+<CLUSTERID>-infra-0 openshift_node_group_name='node-config-infra'
+<CLUSTERID>-app-0 openshift_node_group_name='node-config-compute'
+<CLUSTERID>-app-1 openshift_node_group_name='node-config-compute'
+<CLUSTERID>-app-2 openshift_node_group_name='node-config-compute'
 
 [glusterfs]
-<your_clusterid>-app-0 glusterfs_ip=10.240.0.58 glusterfs_devices='[ "/dev/sdc","/dev/sdd","/dev/sde" ]'
-<your_clusterid>-app-1 glusterfs_ip=10.240.0.59 glusterfs_devices='[ "/dev/sdc","/dev/sdd","/dev/sde" ]'
-<your_clusterid>-app-2 glusterfs_ip=10.240.0.60 glusterfs_devices='[ "/dev/sdc","/dev/sdd","/dev/sde" ]'
+<CLUSTERID>-app-0 glusterfs_ip=10.240.0.58 glusterfs_devices='[ "/dev/sdc","/dev/sdd","/dev/sde" ]'
+<CLUSTERID>-app-1 glusterfs_ip=10.240.0.59 glusterfs_devices='[ "/dev/sdc","/dev/sdd","/dev/sde" ]'
+<CLUSTERID>-app-2 glusterfs_ip=10.240.0.60 glusterfs_devices='[ "/dev/sdc","/dev/sdd","/dev/sde" ]'
 
 [glusterfs:vars]
 ansible_become=true
