@@ -20,7 +20,7 @@ openshift_master_console_port=443
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 openshift_master_htpasswd_users={'admin': '$apr1$zQnWy2uU$ytWlD9id3xonNmZaNkI9q/', 'developer': '$apr1$uh1LkEbr$Evamtx9cd5WhqHr6W4puo0'}
 
-#openshift_master_identity_providers=[{'name': 'Ldap Provider', 'challenge': 'true', 'login': 'true', 'kind': 'LDAPPasswordIdentityProvider', 'attributes': {'id': ['dn'], 'email': ['mail'], 'name': ['cn'], 'preferredUsername': ['uid']}, 'bindDN': 'cn=dvopsusr,dc=msdigital,dc=xyz', 'bindPassword': 'teste2201', 'insecure': 'true', 'url': 'ldap://<your_clusterid>-bastion:389/ou=Users,dc=openshift,dc=msdigital,dc=xyz?uid'}]
+#openshift_master_identity_providers=[{'name': 'Ldap Provider', 'challenge': 'true', 'login': 'true', 'kind': 'LDAPPasswordIdentityProvider', 'attributes': {'id': ['dn'], 'email': ['mail'], 'name': ['cn'], 'preferredUsername': ['uid']}, 'bindDN': 'cn=dvopsusr,dc=msdigital,dc=xyz', 'bindPassword': 'teste2201', 'insecure': 'true', 'url': 'ldap://<your_clusterid>-bastion:389/ou=Users,dc=openshift,dc=<your_domain>,dc=xyz?uid'}]
  
 os_sdn_network_plugin_name=redhat/openshift-ovs-networkpolicy
 openshift_master_cluster_hostname=console.<your_clusterid>.<your.domain>
