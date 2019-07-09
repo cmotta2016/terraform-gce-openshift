@@ -1,6 +1,6 @@
 #!/bin/bash
-sudo yum remove irqbalance cloud-init rhevm-guest-agent-common kexec-tools microcode_ctl rpcbind -y
-sudo yum install google-compute-engine python-google-compute-engine rng-tools acpid firewalld -y
+sudo yum remove irqbalance cloud-init rhevm-guest-agent-common kexec-tools microcode_ctl rpcbind cloud-utils-growpart -y
+sudo yum install google-compute-engine python-google-compute-engine rng-tools acpid firewalld gce-disk-expand -y
 #sudo yum update -y
 sudo systemctl enable rngd google-accounts-daemon google-clock-skew-daemon google-shutdown-scripts google-network-daemon
 
