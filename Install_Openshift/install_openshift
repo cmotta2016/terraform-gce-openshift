@@ -1,0 +1,15 @@
+ansible nodes -i inventory -b -m redhat_subscription -a "state=present username=<your_username> password=<your_password> pool_ids=<your_openshift_poolid>"
+
+ansible nodes -i inventory -b -m shell -a \
+    'subscription-manager repos --disable="*" \
+    --enable="rhel-7-server-rpms" \
+    --enable="rhel-7-server-extras-rpms" \
+    --enable="rhel-7-server-ose-3.11-rpms" \
+    --enable="rhel-7-server-ansible-2.6-rpms"'
+
+ansible all -i inventory -b -m yum -a "name=* state=latest"
+ansible all -i inventory -b -m command -a "reboot"
+
+ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
+ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
+
