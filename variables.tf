@@ -3,11 +3,11 @@ variable "project" {
 }
 
 variable "region" {
-  default = "southamerica-east1"
+  default = "<your_regions>"
 }
 
 variable "zone" {
-  default = "southamerica-east1-b"
+  default = "<your_zone>"
 }
 
 variable "clusterid" {
