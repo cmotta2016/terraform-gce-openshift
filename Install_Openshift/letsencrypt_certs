@@ -1,0 +1,32 @@
+curl https://get.acme.sh | sh
+
+acme.sh --issue --dns -d 'console.openshift.linux4sysadmin.com.br' -d 'registry.apps.<your_clusterid>.<your.domain>' -d 'registry-console-default.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --issue --dns -d 'apps.<your_clusterid>.<your.domain>' -d '*.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+
+Add records TXT on Cloud DNS
+Check if return TXT values
+dig _acme-challenge.console.<your_clusterid>.<your.domain> IN TXT
+dig _acme-challenge.registry.apps.<your_clusterid>.<your.domain> IN TXT
+dig _acme-challenge.registry-console-default.apps.<your_clusterid>.<your.domain> IN TXT
+dig _acme-challenge.apps.<your_clusterid>.<your.domain> IN TXT
+
+After dig commands return sucess values, create certs
+acme.sh --renew --dns -d 'console.<your_clusterid>.<your.domain>' -d 'registry.apps.<your_clusterid>.<your.domain>' -d 'registry-console-default.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --renew --dns -d 'apps.<your_clusterid>.<your.domain>' -d '*.apps.<your_clusterid>.<your.domain>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+
+Update inventory file:
+openshift_master_overwrite_named_certificates=true
+openshift_master_named_certificates=[{ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/console.<your_clusterid>.<your.domain>/console.<your_clusterid>.<your.domain>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/console.<your_clusterid>.<your.domain>/console.<your_clusterid>.<your.domain>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/console.<your_clusterid>.<your.domain>/ca.cer", "names": [ "console.<your_clusterid>.<your.domain>" ] }]
+
+openshift_hosted_router_certificate={ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<your_clusterid>.<your.domain>/apps.<your_clusterid>.<your.domain>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<your_clusterid>.<your.domain>/apps.<your_clusterid>.<your.domain>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<your_clusterid>.<your.domain>/ca.cer" }
+
+openshift_hosted_registry_routehost=registry.apps.<your_clusterid>.<your.domain>
+openshift_hosted_registry_routecertificates={ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<your_clusterid>.<your.domain>/registry.apps.<your_clusterid>.<your.domain>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<your_clusterid>.<your.domain>/registry.apps.<your_clusterid>.<your.domain>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<your_clusterid>.<your.domain>/ca.cer" }
+openshift_hosted_registry_routetermination=reencrypt
+
+
+And redeploy certificates
+ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/openshift-hosted/deploy_router.yml
+
+If the certificates are not new, for example, you want to change existing certificates or replace expired certificates, change to the playbook directory and run the following playbook:
+ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/redeploy-certificates.yml
