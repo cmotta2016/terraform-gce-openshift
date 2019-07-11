@@ -36,8 +36,7 @@ $  make rhn_username=<your_username> rhn_password=<your_password> pool_id=<opens
 $ terraform destroy -auto-approve
 ```
 
-Install Openshift
-On Bastion Node
+Install Openshift (run next commands on Bastion Node)
 1. Create inventory using template file
 
 2. Run prerequisites playbook
