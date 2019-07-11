@@ -135,3 +135,21 @@ module "remove_scripts" {
   infra_instance_name = "${module.infra_node.infra_instance_name}"
   bastion_ip = "${module.network.bastion_public_ip}"
 }
+
+// Module prepare nodes
+module "prepare_nodes" {
+  source = "./modules/prep_nodes"
+//  zone = "${var.zone}"
+  private_ssh_key = "${var.private_ssh_key}"
+  master_instance_name = "${module.master_node.master_instance_name}"
+  clusterid = "${var.clusterid}"
+  infra_instance_name = "${module.infra_node.infra_instance_name}"
+  app0_instance_name = "${module.app_node.app0_instance_name}"
+  app1_instance_name = "${module.app_node.app1_instance_name}"
+  app2_instance_name = "${module.app_node.app2_instance_name}"
+  rhn_username = "${var.rhn_username}"
+  rhn_password = "${var.rhn_password}"
+  pool_id = "${var.pool_id}"
+  bastion_public_ip = "${module.network.bastion_public_ip}"
+  google_user = "${var.google_user}"
+}
