@@ -94,6 +94,8 @@ openshift_logging_kibana_hostname=kibana.apps.<CLUSTERID>.<DOMAIN>
 openshift_logging_curator_nodeselector={"node-role.kubernetes.io/infra": "true"}
 openshift_logging_kibana_nodeselector={"node-role.kubernetes.io/infra": "true"}
 openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra": "true"}
+openshift_logging_curator_default_days=3
+openshift_logging_storage_kind=dynamic
 
 # monitoring configs
 openshift_cluster_monitoring_operator_install=true
