@@ -1,0 +1,33 @@
+# To generate letsencrypt certifieds (maybe you need to exit and login again)
+curl https://get.acme.sh | sh
+
+acme.sh --issue --dns -d 'console.<CLUSTERID>.<DOMAIN>'  --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --issue --dns -d -d 'registry.apps.<CLUSTERID>.<DOMAIN>'  --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --issue --dns -d 'registry-console-default.apps.<CLUSTERID>.<DOMAIN>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --issue --dns -d 'apps.<CLUSTERID>.<DOMAIN>' -d '*.apps.<CLUSTERID>.<DOMAIN>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+
+Add records with TXT values for each command on Cloud DNS
+Check if return TXT values
+dig _acme-challenge.console.<CLUSTERID>.<DOMAIN> IN TXT
+dig _acme-challenge.registry.apps.<CLUSTERID>.<DOMAIN> IN TXT
+dig _acme-challenge.registry-console-default.apps.<CLUSTERID>.<DOMAIN> IN TXT
+dig _acme-challenge.apps.<CLUSTERID>.<DOMAIN> IN TXT
+
+After dig commands return TXT values, create certs
+acme.sh --renew --dns -d 'console.<CLUSTERID>.<DOMAIN>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --renew --dns -d 'registry.apps.<CLUSTERID>.<DOMAIN>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --renew --dns -d 'registry-console-default.apps.<CLUSTERID>.<DOMAIN>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+acme.sh --renew --dns -d 'apps.<CLUSTERID>.<DOMAIN>' -d '*.apps.<CLUSTERID>.<DOMAIN>' --yes-I-know-dns-manual-mode-enough-go-ahead-please
+
+Update inventory file:
+openshift_master_overwrite_named_certificates=true
+openshift_master_named_certificates=[{ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/console.<CLUSTERID>.<DOMAIN>/console.<CLUSTERID>.<DOMAIN>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/console.<CLUSTERID>.<DOMAIN>/console.<CLUSTERID>.<DOMAIN>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/console.<CLUSTERID>.<DOMAIN>/ca.cer", "names": [ "console.<CLUSTERID>.<DOMAIN>" ] }]
+
+openshift_hosted_router_certificate={ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<CLUSTERID>.<DOMAIN>/apps.<CLUSTERID>.<DOMAIN>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<CLUSTERID>.<DOMAIN>/apps.<CLUSTERID>.<DOMAIN>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/apps.<CLUSTERID>.<DOMAIN>/ca.cer" }
+
+openshift_hosted_registry_routehost=registry.apps.<CLUSTERID>.<DOMAIN>
+openshift_hosted_registry_routecertificates={ "certfile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<CLUSTERID>.<DOMAIN>/registry.apps.<CLUSTERID>.<DOMAIN>.cer", "keyfile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<CLUSTERID>.<DOMAIN>/registry.apps.<CLUSTERID>.<DOMAIN>.key", "cafile": "{{ lookup('env','HOME') }}/.acme.sh/registry.apps.<CLUSTERID>.<DOMAIN>/ca.cer" }
+openshift_hosted_registry_routetermination=reencrypt
+
+And redeploy certificates
+ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/redeploy-certificates.yml
