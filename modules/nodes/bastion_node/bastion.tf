@@ -6,7 +6,7 @@ resource "google_compute_instance" "bastion_node" {
   ocp-cluster = "${var.clusterid}"
   osecluster-type = "bastion"
   VmDnsSetting = "GlobalOnly"
-  ssh-keys = "${var.google_user}:${file(var.private_ssh_key)}"
+  ssh-keys = "${var.google_user}:${file(var.public_ssh_key)}"
  }
  boot_disk {
   device_name = "${var.clusterid}-bastion"

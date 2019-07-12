@@ -66,6 +66,7 @@ module "bastion_node" {
   bastion_disk_size = "${var.bastion_disk_size}"
   bastion_disk_type = "${var.bastion_disk_type}"
   private_ssh_key = "${var.private_ssh_key}"
+  public_ssh_key = "${var.public_ssh_key}"
   network_name = "${module.network.network_name}"
   subnetwork_name = "${module.network.subnetwork_name}"
   bastion_public_ip = "${module.network.bastion_public_ip}"

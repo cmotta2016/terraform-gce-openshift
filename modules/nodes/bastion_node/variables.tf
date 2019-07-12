@@ -25,7 +25,10 @@ variable "subnetwork_name" {
 variable "bastion_public_ip" {
 }
 
-variable "private_ssh_key"{
+variable "public_ssh_key" {
+}
+
+variable "private_ssh_key" {
 }
 
 variable "rhn_username"{
