@@ -1,7 +1,7 @@
 resource "null_resource" "removing_startup_scripts" {
   connection {
     type = "ssh"
-    user = "jeniffer_jc29"
+    user = "${var.google_user}"
     host = "${var.bastion_ip}"
     private_key = "${file(var.private_ssh_key)}"
   }

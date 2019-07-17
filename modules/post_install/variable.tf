@@ -15,3 +15,7 @@ variable "clusterid" {
 
 variable "zone" {
 }
+
+// Used to log on google cloud console
+variable "google_user" {
+}

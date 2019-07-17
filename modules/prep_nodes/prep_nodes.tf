@@ -1,7 +1,7 @@
 resource "null_resource" "preparing_nodes" {
   connection {
     type     = "ssh"
-    user     = "jeniffer_jc29"
+    user     = "${var.google_user}"
     host = "${var.bastion_public_ip}"
     private_key = "${file(var.private_ssh_key)}"
   }
@@ -32,7 +32,7 @@ resource "null_resource" "register_nodes" {
     command = "ssh -i ${var.private_ssh_key} -o StrictHostKeyChecking=no ${var.google_user}@${var.bastion_public_ip} '/tmp/rhn_register.sh ${var.rhn_username} ${var.rhn_password} ${var.pool_id}; sudo rm -rf /tmp/*; echo 0'"
   }
   provisioner "local-exec" {
-     command = "sleep 80"
+     command = "sleep 100"
   }
   depends_on = ["null_resource.preparing_nodes"]
 }

@@ -135,6 +135,7 @@ module "remove_scripts" {
   clusterid = "${var.clusterid}"
   infra_instance_name = "${module.infra_node.infra_instance_name}"
   bastion_ip = "${module.network.bastion_public_ip}"
+  google_user = "${var.google_user}"
 }
 
 // Module prepare nodes

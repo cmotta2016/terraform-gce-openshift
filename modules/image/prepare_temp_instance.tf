@@ -30,7 +30,7 @@ resource "null_resource" "copy_files" {
     ]
   }
    provisioner "local-exec" {
-     command = "sleep 80"
+     command = "sleep 100"
   }
   depends_on    = ["google_compute_instance.temp_instance"]
 }
