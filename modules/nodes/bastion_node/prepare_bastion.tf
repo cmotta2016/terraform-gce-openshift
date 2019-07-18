@@ -1,4 +1,7 @@
 resource "null_resource" "preparing_bastion" {
+  provisioner "local-exec" {
+     command = "sed -i 's/cloud-user/${var.google_user}/g' ${path.cwd}/modules/nodes/bastion_node/conf/ansible.cfg"
+  }
   connection {
     type     = "ssh"
     user     = "${var.google_user}"
