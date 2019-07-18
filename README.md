@@ -38,7 +38,7 @@ $ terraform destroy -auto-approve
 
 Install Openshift (run next commands on Bastion Node)
 1. Create inventory using template file  
-If you want to use Let's Encrypt certificates, read Openshift_files/letsencrypt_certs  
+If you want to use Let's Encrypt certificates, read Openshift_files/letsencrypt_certs.  
 Inventory file use Google Bucket to registry storage. Create one on Google Storage and update inventory file with name of Bucket.
 
 2. Run prerequisites playbook
