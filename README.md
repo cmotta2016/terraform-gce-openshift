@@ -37,7 +37,9 @@ $ terraform destroy -auto-approve
 ```
 
 Install Openshift (run next commands on Bastion Node)
-1. Create inventory using template file
+1. Create inventory using template file  
+If you want to use Let's Encrypt certificates, read Openshift_files/letsencrypt_certs  
+Inventory file use Google Bucket to registry storage. Create one on Google Storage and update inventory file with name of Bucket.
 
 2. Run prerequisites playbook
 ```
@@ -47,4 +49,9 @@ $ ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/p
 3. Run deploy playbook
 ```
 $ ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
+```
+
+4. To uninstall Openshit
+```
+$ ansible-playbook -i inventory /usr/share/ansible/openshift-ansible/playbooks/adhoc/uninstall.yml
 ```
